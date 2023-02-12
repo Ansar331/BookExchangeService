@@ -1,0 +1,143 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
+
+<app-normal-header></app-normal-header>
+
+
+<mat-horizontal-stepper class="" linear labelPosition="bottom" #stepper>
+
+  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup">
+      <ng-template matStepLabel>Fill out name</ng-template>
+      <mat-form-field>
+        <input type="text" matInput placeholder="Name" formControlName="name" required>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <mat-step [stepControl]="secondFormGroup">
+    <form [formGroup]="secondFormGroup">
+      <ng-template matStepLabel>Fill out author</ng-template>
+      <mat-form-field>
+        <input type="text" matInput placeholder="Author" formControlName="author" required>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <mat-step [stepControl]="thirdFormGroup">
+    <form [formGroup]="thirdFormGroup">
+      <ng-template matStepLabel>Choose the year of publication</ng-template>
+      <mat-form-field>
+          <input type="date" matInput placeholder="Year" formControlName="year" required>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <mat-step [stepControl]="fourthFormGroup">
+    <form [formGroup]="fourthFormGroup">
+      <ng-template matStepLabel>Write down the category</ng-template>
+      <mat-form-field>
+        <input type="text" matInput placeholder="Category" formControlName="category" required>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <mat-step [stepControl]="fifthFormGroup">
+    <form [formGroup]="fifthFormGroup">
+      <ng-template matStepLabel>Choose genre</ng-template>
+      <mat-form-field>
+        <input type="text" matInput placeholder="Genre" formControlName="genre" required>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <mat-step>
+    <ng-template matStepLabel>Finish creation</ng-template>
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button (click)="stepper.reset()">Reset</button>
+      <button mat-raised-button color="accent" (click)="createBook()">Create Book</button>
+    </div>
+  </mat-step>
+
+</mat-horizontal-stepper>
+
+
+<mat-divider></mat-divider>
+
+
+<ng-container>
+  <div *ngFor="let book of ownBooks">
+
+    <div *ngIf="edittedId!==book.id">
+      <mat-card class="book-card">
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image"></div>
+
+          <mat-card-title>{{book.name}}</mat-card-title>
+          <mat-card-subtitle>{{book.author}} <br> {{book.year}}</mat-card-subtitle>
+
+        </mat-card-header>
+        <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg">
+
+        <mat-card-content>
+          <p>
+            {{book.category}}
+            <br>
+            {{book.genre}}
+          </p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-raised-button color="accent" (click)="selectBook(book)">EDIT</button>
+          <button mat-raised-button color="accent" (click)="deleteBook(book.id)">DELETE</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+
+    <div *ngIf="edittedId===book.id">
+
+      <mat-card class="book-card">
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image"></div>
+
+          <mat-card-title>
+            <input matInput placeholder="New name" value="{{book.name}}" [(ngModel)]="book.name">
+          </mat-card-title>
+          <mat-card-subtitle>
+            <input matInput placeholder="New author" value="{{book.author}}" [(ngModel)]="book.author">
+            <input matInput type="date" placeholder="New year" value="{{book.year}}" [(ngModel)]="book.year">
+          </mat-card-subtitle>
+
+        </mat-card-header>
+        <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg">
+
+        <mat-card-content>
+          <p>
+            <input matInput placeholder="New category" value="{{book.category}}" [(ngModel)]="book.category">
+            <input matInput placeholder="New category" value="{{book.genre}}" [(ngModel)]="book.genre">
+          </p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-raised-button color="accent" (click)="editBook(book)">UPDATE</button>
+          <button mat-raised-button color="accent" (click)="deleteBook(book.id)">DELETE</button>
+        </mat-card-actions>
+      </mat-card>
+
+    </div>
+    </div>
+</ng-container>

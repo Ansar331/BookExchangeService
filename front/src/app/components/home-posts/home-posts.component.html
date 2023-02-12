@@ -1,0 +1,118 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
+
+<app-normal-header></app-normal-header>
+
+
+<mat-horizontal-stepper class="" linear labelPosition="bottom" #stepper>
+
+  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup">
+      <ng-template matStepLabel>Give post a title</ng-template>
+      <mat-form-field>
+        <input type="text" matInput placeholder="Title" formControlName="title" required>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <mat-step [stepControl]="secondFormGroup">
+    <form [formGroup]="secondFormGroup">
+      <ng-template matStepLabel>Write some words</ng-template>
+      <mat-form-field>
+        <input type="text" matInput placeholder="Body" formControlName="body" required>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <mat-step [stepControl]="thirdFormGroup">
+    <form [formGroup]="thirdFormGroup">
+      <ng-template matStepLabel>Choose book to share</ng-template>
+      <mat-form-field>
+        <mat-select matInput placeholder="Book" formControlName="book" required>
+          <mat-option *ngFor="let book of ownBooks" [value]="book.id">
+            {{book.name}}
+          </mat-option>
+        </mat-select>
+
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <mat-step>
+    <ng-template matStepLabel>Finish creation</ng-template>
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button (click)="stepper.reset()">Reset</button>
+      <button mat-raised-button color="accent" (click)="createPost()">Create Post</button>
+    </div>
+  </mat-step>
+
+</mat-horizontal-stepper>
+
+
+<mat-divider></mat-divider>
+
+
+<ng-container>
+  <div *ngFor="let post of ownPosts">
+
+    <div *ngIf="edittedId!==post.id">
+      <mat-card class="post-card">
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image"></div>
+
+          <mat-card-title>{{post.title}}</mat-card-title>
+          <mat-card-subtitle>{{post.user}}</mat-card-subtitle>
+          <!--<img style="background-image: {{post.image}}"/>-->
+        </mat-card-header>
+        <img mat-card-image src="{{post.image}}">
+        <mat-card-content>
+          <p>
+            {{post.body}}
+          </p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-raised-button color="accent" (click)="selectPost(post)">EDIT</button>
+          <button mat-raised-button color="accent" (click)="deletePost(post.id)">DELETE</button>
+        </mat-card-actions>
+      </mat-card>
+
+    </div>
+
+  <div *ngIf="edittedId===post.id">
+
+      <mat-card class="post-card">
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image"></div>
+
+          <mat-card-title>
+            <input matInput placeholder="New title" value="{{post.title}}" [(ngModel)]="post.title">
+          </mat-card-title>
+          <mat-card-subtitle>{{post.user}}</mat-card-subtitle>
+
+        </mat-card-header>
+        <img mat-card-image src="{{post.image}}">
+
+        <mat-card-content>
+          <p>
+            <input matInput placeholder="New body" value="{{post.body}}" [(ngModel)]="post.body">
+          </p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-raised-button color="accent" (click)="editPost(post)">UPDATE</button>
+          <button mat-raised-button color="accent" (click)="deletePost(post.id)">DELETE</button>
+        </mat-card-actions>
+      </mat-card>
+
+    </div>
+  </div>
+
+</ng-container>

@@ -1,0 +1,11 @@
+.profile-card {
+  display: flex;
+  flex-direction: column;
+
+  max-width: 500px;
+  margin: 100px auto;
+}
+
+mat-card input {
+  color: #536DFE;
+}

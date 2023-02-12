@@ -1,0 +1,31 @@
+<app-normal-header></app-normal-header>
+
+<ng-container>
+  <div *ngFor="let post of posts">
+
+
+    <mat-card class="post-card">
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+
+        <mat-card-title>{{post.title}}</mat-card-title>
+        <mat-card-subtitle>{{post.created_at}}</mat-card-subtitle>
+
+      </mat-card-header>
+      <img mat-card-image src="{{post.image}}">
+
+      <mat-card-content>
+        <p>
+          {{post.body}}
+        </p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="accent" (click)="contact(post.user)">CONTACT</button>
+      </mat-card-actions>
+    </mat-card>
+
+
+
+
+  </div>
+</ng-container>

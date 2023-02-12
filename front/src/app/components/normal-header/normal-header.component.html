@@ -1,0 +1,19 @@
+<mat-toolbar color="primary" class="mat-elevation-z6">
+  <span>Kitap Swap</span>
+
+<!--  Search bar-->
+<!--  <mat-form-field>-->
+<!--    <input matInput placeholder="Search for shared books">-->
+<!--  </mat-form-field>-->
+
+
+  <span class="example-fill-remaining-space"></span>
+
+
+  <a mat-flat-button mat-button color="primary" routerLink="../home" routerLinkActive="active" >Home</a>
+  <a mat-flat-button mat-button color="primary" routerLink="../books" routerLinkActive="active" >Books</a>
+  <a mat-flat-button mat-button color="primary" routerLink="../feed" routerLinkActive="active" >Feed</a>
+  <a mat-flat-button mat-button color="primary" routerLink="../profile" routerLinkActive="active" >Profile</a>
+  <a mat-flat-button mat-button color="accent" routerLink="../login" (click)="logout()"  routerLinkActive="active" >Logout</a>
+
+</mat-toolbar>

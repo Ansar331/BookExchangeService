@@ -1,0 +1,56 @@
+<app-normal-header></app-normal-header>
+
+<ng-container>
+  <div *ngFor="let profile of ownProfile">
+    <div *ngIf="edittedId!==profile.id">
+      <mat-card class="profile-card">
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image"></div>
+
+          <mat-card-title>{{profile.user}}</mat-card-title>
+          <mat-card-subtitle>{{profile.birth_date}}</mat-card-subtitle>
+
+        </mat-card-header>
+        <img mat-card-image src="http://www.retemusealebelicina.it/new/wp-content/uploads/2015/06/sagoma-profilo-uomo.jpg">
+
+        <mat-card-content>
+          <p>
+            {{profile.bio}}
+            <br>
+            {{profile.location}}
+          </p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-raised-button color="accent" (click)="selectProfile(profile)">EDIT</button>
+        </mat-card-actions>
+      </mat-card>
+
+    </div>
+
+    <div *ngIf="edittedId===profile.id">
+
+      <mat-card class="profile-card">
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image"></div>
+
+          <mat-card-title>{{profile.user}}</mat-card-title>
+          <mat-card-subtitle><input matInput type="date" placeholder="New date" value="{{profile.date}}" [(ngModel)]="profile.date"></mat-card-subtitle>
+
+        </mat-card-header>
+        <img mat-card-image src="http://www.retemusealebelicina.it/new/wp-content/uploads/2015/06/sagoma-profilo-uomo.jpg">
+
+        <mat-card-content>
+          <p>
+            <input matInput placeholder="New bio" value="{{profile.bio}}" [(ngModel)]="profile.bio">
+            <input matInput placeholder="New location" value="{{profile.location}}" [(ngModel)]="profile.location">
+          </p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-raised-button color="accent" (click)="editProfile(profile)">UPDATE</button>
+        </mat-card-actions>
+      </mat-card>
+
+    </div>
+  </div>
+
+</ng-container>
